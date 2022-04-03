@@ -10,4 +10,3 @@ WORKDIR "/boxfuse-sample-java-war-hello"
 RUN mvn package
 RUN cp target/hello-1.0.war /usr/share/tomcat
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
