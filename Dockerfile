@@ -11,5 +11,6 @@ RUN mvn package
 RUN ln -s /etc/tomcat9 /usr/share/tomcat9/conf
 RUN mkdir /usr/share/tomcat9/temp
 RUN cp target/hello-1.0.war /usr/share/tomcat
+RUN ls /usr/share/tomcat
 EXPOSE 8080
 CMD /usr/share/tomcat9/bin/catalina.sh run
