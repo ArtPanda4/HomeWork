@@ -1,5 +1,4 @@
 FROM ubuntu:20.04
-LABEL "HOMEWORK from ARTEZ"
 RUN apt-get update
 RUN apt-get install maven -y
 RUN apt-get install tomcat9 -y
