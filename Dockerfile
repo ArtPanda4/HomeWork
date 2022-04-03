@@ -1,20 +1,13 @@
-FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND noninteractive
-ENV CATALINA_HOME=/usr/share/tomcat9
-ENV CATALINA_BASE=/usr/share/tomcat9
-ENV CATALINA_TMPDIR=/usr/share/tomcat9/temp
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install apt-utils -y
-RUN apt install default-jdk -y
-RUN apt-get install maven -y
-RUN apt-get install tomcat9 -y
-RUN apt-get install git -y
+FROM  bitnami/git:latest as git
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-WORKDIR "/boxfuse-sample-java-war-hello"
-RUN mvn package
-RUN ln -s /etc/tomcat9 /usr/share/tomcat9/conf
-RUN mkdir /usr/share/tomcat9/temp
-RUN cp target/hello-1.0.war /var/lib/tomcat9/webapps
-EXPOSE 8080
-CMD /usr/share/tomcat9/bin/startup.sh run
-CMD /usr/share/tomcat9/bin/catalina.sh run
+
+FROM maven:latest AS build
+RUN mkdir /opt/app 
+COPY --from=git /boxfuse-sample-java-war-hello/  /opt/app
+RUN cd  /opt/app/target
+RUN mvn -f clean package
+
+FROM tomcat:latest 
+COPY --from=build /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps/ 
+EXPOSE 8080  
+CMD ["catalina.sh", "run"]
