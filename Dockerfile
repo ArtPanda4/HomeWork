@@ -4,8 +4,7 @@ RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
 FROM maven:latest AS build
 RUN mkdir /opt/app 
 COPY --from=git /boxfuse-sample-java-war-hello/  /opt/app
-RUN cd /opt/app/
-RUN ls
+WORKDIR "/opt/app/"
 #RUN mvn -f clean package
 
 #FROM tomcat:latest 
