@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
-Run apt-get update
+LABEL "HOMEWORK from ARTEZ"
+RUN apt-get update
 RUN apt-get install maven -y
 RUN apt-get install tomcat9 -y
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
