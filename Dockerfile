@@ -5,7 +5,7 @@ FROM maven:latest AS build
 RUN mkdir /opt/app 
 COPY --from=git /boxfuse-sample-java-war-hello/  /opt/app
 WORKDIR "/opt/app/"
-RUN mvn -f clean package
+RUN mvn package
 
 #FROM tomcat:latest 
 #COPY --from=build /opt/app/boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/local/tomcat/webapps/ 
