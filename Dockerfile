@@ -8,6 +8,6 @@ WORKDIR "/opt/app/"
 RUN mvn package
 
 FROM tomcat:latest 
-COPY --from=build /opt/app/boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/local/tomcat/webapps/ 
+COPY --from=build /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps/ 
 EXPOSE 8080  
 CMD ["catalina.sh", "run"]
