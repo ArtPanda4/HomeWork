@@ -4,6 +4,8 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get install apt-utils -y
 RUN apt-get install maven -y
 RUN apt-get install tomcat9 -y
+RUN ln /etc/tomcat9 /usr/share/tomcat9
+RUN mc /usr/share/tomcat9/temp
 RUN apt-get install git -y
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
 WORKDIR "/boxfuse-sample-java-war-hello"
