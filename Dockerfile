@@ -6,7 +6,7 @@ RUN apt-get install maven -y
 RUN apt-get install tomcat9 -y
 RUN apt-get install git -y
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-RUN cd boxfuse-sample-java-war-hello
+WORKDIR "boxfuse-sample-java-war-hello"
 RUN mvn package
 RUN ln -s /etc/tomcat9 /usr/share/tomcat9/conf
 RUN mkdir /usr/share/tomcat9/temp
