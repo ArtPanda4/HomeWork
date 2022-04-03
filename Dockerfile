@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install apt-utils -y
 RUN apt-get install maven -y
