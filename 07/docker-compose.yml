@@ -6,7 +6,7 @@ services:
       context: src/
     init: true
     volumes:
-      - src:/opt
+      - src:/opt/
     networks:
       - hw
 
@@ -14,7 +14,7 @@ services:
     build:
       context: app/ 
     volumes:
-      - src:/opt
+      - src:/opt/
     ports:
       - "8080:8080"
     depends_on:
