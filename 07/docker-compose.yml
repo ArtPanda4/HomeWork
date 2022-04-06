@@ -6,7 +6,7 @@ services:
       context: src/
     init: true
     volumes:
-      - src:/opt/
+      - src:/opt/app
     networks:
       - hw
 
