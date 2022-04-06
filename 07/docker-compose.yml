@@ -10,7 +10,7 @@ services:
 
   prod:
     build:
-      context: app/ 
+      context: app1/ 
     volumes:
       - app:/usr/local/tomcat/webapps/
     ports:
