@@ -4,27 +4,17 @@ services:
   builder:
     build:
       context: src/
-    init: true
     volumes:
-      - src:/opt:rw
-    networks:
-      - hw
+      - src:/opt
+
 
   prod:
     build:
       context: app/ 
     volumes:
-      - src:/usr/local/tomcat/webapps
+      - app:/usr/local/tomcat/webapps/
     ports:
       - "8080:8080"
-    depends_on:
-      - builder  
-    networks:
-      - hw
-
-networks:
-  hw:
-    driver: bridge
 
 volumes:
   src:
