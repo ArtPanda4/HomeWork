@@ -1,4 +1,4 @@
-FROM maven:3.6.1-slim AS build
+FROM maven:3.6.3-openjdk-8-slim
 RUN apt install git -y
 WORKDIR "/opt/app/"
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
