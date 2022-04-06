@@ -12,7 +12,7 @@ services:
     build:
       context: app/ 
     volumes:
-      - /var/lib/docker/volumes/07_src/_data/target:/opt
+      - /var/lib/docker/volumes/07_src/_data:/opt
     ports:
       - "8080:8080"
 
