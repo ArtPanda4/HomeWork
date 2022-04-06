@@ -12,10 +12,9 @@ services:
     build:
       context: app/ 
     volumes:
-      - app:/usr/local/tomcat/webapps/
+      - /var/lib/docker/volumes/07_src/_data/target:/usr/local/tomcat/webapps/
     ports:
       - "8080:8080"
 
 volumes:
   src:
-  app:
