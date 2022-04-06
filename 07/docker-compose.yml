@@ -4,7 +4,7 @@ services:
   builder:
     build:
       context: src/
-      dockerfile: dockerfile-build
+      dockerfile: Dockerfile-build
     volumes:
       - src:/opt
 
@@ -12,7 +12,7 @@ services:
   prod:
     build:
       context: src/
-      dockerfile: dockerfile-prod
+      dockerfile: Dockerfile-prod
     volumes:
       - src:/usr/local/tomcat/webapps/
 
