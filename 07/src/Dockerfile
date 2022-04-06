@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM ubuntu:20.04
 RUN apt-get install maven -y
 RUN apt-get install git -y
 WORKDIR "/opt/app/"
