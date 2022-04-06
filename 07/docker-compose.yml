@@ -2,23 +2,19 @@ version: '3.7'
 
 services:
   builder:
-    image: maven
     build:
       context: src/
+      dockerfile: dockerfile-build
     volumes:
       - src:/opt
 
 
   prod:
-    image: tomcat
     build:
-      context: app/ 
+      context: src/
+      dockerfile: dockerfile-prod
     volumes:
-      - type: volume
-        source: src
-        target: /usr/local/tomcat/webapps/
-        volume:
-          nocopy: true
+      - src:/usr/local/tomcat/webapps/
 
     ports:
       - "8080:8080"
