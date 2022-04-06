@@ -5,7 +5,7 @@ RUN apt-get install git -y
 RUN apt-get install apt-utils -y
 RUN apt install default-jdk -y
 RUN apt-get install maven -y
-WORKDIR "/opt/app/"
+WORKDIR "/opt"
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
 RUN cd boxfuse-sample-java-war-hello
 RUN mvn package

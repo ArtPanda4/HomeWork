@@ -6,7 +6,7 @@ services:
       context: src/
     init: true
     volumes:
-      - ./src:/opt/app/
+      - src:/opt
     networks:
       - hw
 
@@ -23,3 +23,6 @@ services:
 networks:
   hw:
     driver: bridge
+
+volumes:
+  src:
