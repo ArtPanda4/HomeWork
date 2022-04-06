@@ -7,7 +7,6 @@ services:
     init: true
     volumes:
       - src:/opt/app/
-      - app:/opt/app/webapp
     networks:
       - hw
 
@@ -15,7 +14,7 @@ services:
     build:
       context: app/ 
     volumes:
-      - app:/usr/local/tomcat/webapps/
+      - ./src/target:/usr/local/tomcat/webapps/
     ports:
       - "8080:8080"
     networks:
@@ -27,4 +26,3 @@ networks:
 
 volumes:
   src:
-  app:

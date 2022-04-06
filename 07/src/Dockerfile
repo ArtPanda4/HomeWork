@@ -1,7 +1,6 @@
 FROM maven:3.6.1-slim AS build
-RUN mkdir /opt/app
-RUN mkdir /opt/app/webapp
+RUN apt install git -y
 WORKDIR "/opt/app/"
-RUN ls -ap
+RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
+RUN cd boxfuse-sample-java-war-hello
 RUN mvn package
-RUN cp ./target/* /opt/app/webapp
