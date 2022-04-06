@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:stable
 RUN apt-get install maven -y
 RUN apt-get install git -y
 WORKDIR "/opt/app/"
