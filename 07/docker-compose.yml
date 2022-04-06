@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   builder:
+    image: maven
     build:
       context: src/
     volumes:
@@ -9,10 +10,16 @@ services:
 
 
   prod:
+    image: tomcat
     build:
       context: app/ 
     volumes:
-      - /var/lib/docker/volumes/07_src/_data:/opt
+      - type: volume
+        source: src
+        target: /usr/local/tomcat/webapps/
+        volume:
+          nocopy: true
+
     ports:
       - "8080:8080"
 
