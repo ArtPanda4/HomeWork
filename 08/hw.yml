@@ -33,18 +33,19 @@
     ansible.builtin.fetch:
       src: /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war
       dest: /tmp/
+      flat: true
   
 - name: start app on prod
   hosts: prod
   become: yes
 
   tasks:   
-  - name: isntall tomcat
+  - name: install tomcat
     apt:
       name: tomcat9
       state: present
 
-  - name: copy app from ansible master to prod
+  - name: copy app from ansible master to prods
     ansible.builtin.copy:
         src: /tmp/hello-1.0.war
         dest: /var/lib/tomcat9/webapps/hello-1.0.war
