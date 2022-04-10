@@ -25,7 +25,7 @@
       chdir: /tmp
 
   - name: build a war
-    ccommand: mvn package
+    command: mvn package
     args:
       chdir: /tmp/boxfuse-sample-java-war-hello
 
