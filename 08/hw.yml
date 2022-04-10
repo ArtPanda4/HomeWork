@@ -21,9 +21,11 @@
 
   - name: git clone boxfuse
     command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+    chdir: /tmp
 
   - name: build a war
-    command: cd boxfuse-sample-java-war-hello && mvn package
+    command: mvn package
+    chdir: /tmp/boxfuse-sample-java-war-hello
 
   - name: copy war file to ansible master
     ansible.builtin.fetch:
