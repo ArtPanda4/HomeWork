@@ -20,12 +20,12 @@
       state: present
 
   - name: git clone boxfuse
-    ansible.builtin.command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+    command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
     args:
       chdir: /tmp
 
   - name: build a war
-    ansible.builtin.command: mvn package
+    ccommand: mvn package
     args:
       chdir: /tmp/boxfuse-sample-java-war-hello
 
