@@ -20,7 +20,7 @@
       state: present
 
   - name: git clone boxfuse
-    command: cd /tmp && git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+    command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
 
   - name: build a war
     command: cd boxfuse-sample-java-war-hello && mvn package
