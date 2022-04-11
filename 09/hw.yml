@@ -9,10 +9,10 @@
       name: nginx
       state: present
 
-  - name: Ensure SELinux is set to enforcing mode
+  - name: 
     ansible.builtin.lineinfile:
       path: /usr/share/nginx/html/index.html
-      regexp: 'Welcome to nginx'
+      regexp: 'Welcome to nginx!'
       line: <p><script> document.write(new Date().toLocaleDateString()); </script></p>
 
   - name: ensure nginx
