@@ -1,6 +1,6 @@
 ---
 - name: build
-  hosts: build
+  hosts: prod
   become: yes
   
   tasks:
