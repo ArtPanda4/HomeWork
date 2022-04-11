@@ -1,0 +1,22 @@
+---
+- name: build
+  hosts: build
+  become: yes
+  
+  tasks:
+  - name: Install nginx
+    apt:
+      name: dnginx
+      state: present
+
+  - name: Ensure SELinux is set to enforcing mode
+    ansible.builtin.lineinfile:
+      path: /usr/share/nginx/html
+      regexp: 'Welcome to nginx'
+      line: <p><script> document.write(new Date().toLocaleDateString()); </script></p>
+
+  - name: ensure nginx
+    service:
+      name: nginx
+      state: started
+    
