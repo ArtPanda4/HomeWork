@@ -34,24 +34,9 @@
   - name: Create prod image
     docker_container:
       name: prod_img
-      state: present
+      state: restarted
       image: tomcat:latest
       volumes:
         - app_dir:/opt
       command:
         - cp /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps/  
-
-  - name: start prod image
-    docker_container:
-      detach: false
-      name: prod_img
-      state: started
-      ports:
-      - "8080:8080"
-      expose:
-        - 8080
-    register: docker_container_output
-
-  - name: Show test output
-    debug:
-      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"         
