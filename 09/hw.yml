@@ -31,7 +31,7 @@
       image: maven:3.6.1-slim
       command:
         - WORKDIR "/opt"
-        - cd boxfuse-sample-java-war-hello
+        - CD boxfuse-sample-java-war-hello
         - mvn package
       volumes:
         - app_dir:/opt      
@@ -42,7 +42,7 @@
       state: started
       image: tomcat:alpine
       command: 
-        - cp /opt/boxfuse-sample-java-war-hello/*.war /usr/local/tomcat/webapps/   
+        - CP /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/   
         - ["catalina.sh", "run"]
       exposed_ports:
         - 8080  
