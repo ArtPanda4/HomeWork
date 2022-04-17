@@ -18,7 +18,7 @@
       name: git
       state: present
       image: bitnami/git:latest
-      command: /bin/bash -c "{{ item }}"
+      command: /bin/bash -c {{ item }}
       with_items:
         - WORKDIR "/opt"
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
@@ -30,7 +30,7 @@
       name: maven
       state: present
       image: maven:3.6.1-slim
-      command: /bin/bash -c "{{ item }}"
+      command: /bin/bash -c {{ item }}
       with_items:
         - WORKDIR "/opt"
         - cd boxfuse-sample-java-war-hello
@@ -43,7 +43,7 @@
       name: prod_img
       state: present
       image: tomcat:alpine
-      command: /bin/bash -c "{{ item }}"
+      command: /bin/bash -c {{ item }}
       with_items:
         - cp /opt/boxfuse-sample-java-war-hello/*.war /usr/local/tomcat/webapps/   
         - ["catalina.sh", "run"]
