@@ -40,8 +40,7 @@
       volumes:
         - app_dir:/opt
       command: 
-        - cp /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps && ["catalina.sh", "run"]
-
+       - ["catalina.sh", "run"]
       ports:
       - "8080:8080"
       expose:
