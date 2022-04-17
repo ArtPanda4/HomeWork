@@ -39,11 +39,13 @@
   - name: Create prod image
     docker_container:
       name: prod_img
-      state: present
+      state: started
       image: tomcat:alpine
       command: 
         - cp /opt/boxfuse-sample-java-war-hello/*.war /usr/local/tomcat/webapps/   
         - ["catalina.sh", "run"]
+      exposed_ports:
+        - 8080  
       volumes:
         - app_dir:/opt  
 
