@@ -19,6 +19,7 @@
       command:
         - WORKDIR "/opt"
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
+        - cat /opt
 
 
   - name: Create maven build
