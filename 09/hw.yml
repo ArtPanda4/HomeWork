@@ -22,7 +22,6 @@
 
   - name: Create maven build
     docker_container:
-      detach: false
       name: maven
       state: started
       image: maven:3.6.1-slim
@@ -31,11 +30,6 @@
       working_dir: /opt/app  
       command:
         - mvn package
-    register: docker_container_output
- 
-  - name: Show test output
-    debug:
-      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"
 
   - name: Create prod image
     docker_container:
@@ -46,7 +40,7 @@
       volumes:
         - app_dir:/opt
       command: 
-        - cp /opt/app/target/*.war /usr/local/tomcat/webapps
+        - cp /opt/app/target/* /usr/local/tomcat/webapps
       ports:
       - "8080:8080"
       expose:
