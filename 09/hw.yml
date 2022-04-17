@@ -28,7 +28,8 @@
       volumes:
         - app_dir:/opt
       command:
-        - mvn -f /opt/app/pom.xml packages
+        - cd /opt/app
+        - mvn packages
 
 
   - name: Create prod image
