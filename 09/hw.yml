@@ -13,12 +13,12 @@
     docker_container:
       name: git
       state: started
-      image: bitnami/git:latest
+      image: ubuntu:latest
       detach : false
       volumes:
         - app_dir:/opt
       command:
-        - workdir "/opt"     
+        - cd /opt
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
     register: docker_container_output
 
