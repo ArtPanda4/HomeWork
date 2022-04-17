@@ -32,19 +32,21 @@
       command:
         - WORKDIR "/opt"
         - CD boxfuse-sample-java-war-hello
-        - mvn package
+        - mvn packages
       volumes:
         - app_dir:/opt      
 
   - name: Create prod image
     docker_container:
       name: prod_img
-      state: Running
+      state: started
       image: tomcat:alpine
-      command: cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/   
-      exposed_ports:
-        - 8080  
+      volumes:
+        - app_dir:/opt
+      command: 
+        - cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/
+        - ./bin/catalina.sh start 
       ports:
       - "8080:8080"
-      volumes:
-        - app_dir:/opt  
+      expose:
+        - 8080    
