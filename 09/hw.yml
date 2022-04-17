@@ -1,22 +1,60 @@
 ---
-- name: build
-  hosts: prod
+- name: build app
+  hosts: build
   become: yes
   
   tasks:
-  - name: Install nginx
+  - name: Install java
     apt:
-      name: nginx
+      name: default-jdk
       state: present
 
-  - name: 
-    ansible.builtin.lineinfile:
-      path: /var/www/html/index.nginx-debian.html
-      regexp: 'Welcome to nginx!'
-      line: <p><script> document.write(new Date().toLocaleDateString()); </script></p>
+  - name: Install maven
+    apt:
+      name: maven
+      state: present
 
-  - name: ensure nginx
+  - name: Install git
+    apt:
+      name: git
+      state: present
+
+  - name: git clone boxfuse
+    command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+    args:
+      chdir: /tmp
+
+  - name: build a war
+    command: mvn package
+    args:
+      chdir: /tmp/boxfuse-sample-java-war-hello
+
+  - name: copy war file to ansible master
+    ansible.builtin.fetch:
+      src: /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war
+      dest: /tmp/
+      flat: true
+  
+- name: start app on prod
+  hosts: prod
+  become: yes
+
+  tasks:   
+  - name: install tomcat
+    apt:
+      name: tomcat9
+      state: present
+
+  - name: copy app from ansible master to prods
+    ansible.builtin.copy:
+        src: /tmp/hello-1.0.war
+        dest: /var/lib/tomcat9/webapps/hello-1.0.war
+        owner: root
+        group: root
+        mode: '0777'
+
+  - name: ensure tomcat is running
     service:
-      name: nginx
-      state: restarted
+      name: tomcat9
+      state: started
     
