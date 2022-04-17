@@ -39,7 +39,7 @@
   - name: Create prod image
     docker_container:
       name: prod_img
-      state: started
+      state: Running
       image: tomcat:alpine
       command: cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/   
       exposed_ports:
