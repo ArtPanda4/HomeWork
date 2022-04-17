@@ -39,8 +39,6 @@
       image: tomcat:alpine
       volumes:
         - app_dir:/tmp
-      command: 
-       - CMD ["catalina.sh", "run"]
       ports:
       - "8080:8080"
       expose:
