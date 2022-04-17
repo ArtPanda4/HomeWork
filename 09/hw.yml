@@ -18,7 +18,7 @@
       volumes:
         - app_dir:/opt
       command:
-        - /bin/sh -c cd /opt
+        - bash -c "cd /opt"
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
     register: docker_container_output
 
