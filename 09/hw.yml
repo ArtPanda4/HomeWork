@@ -15,10 +15,10 @@
       state: started
       image: bitnami/git:latest
       volumes:
-        - app_dir:/opt
+        - app_dir:/tmp
       command:
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-        - cp -r ./boxfuse-sample-java-war-hello/* /opt
+        - cp -r ./boxfuse-sample-java-war-hello/* /tmp
 
 
   - name: Create maven build
@@ -27,9 +27,9 @@
       state: started
       image: maven:3.6.1-slim
       volumes:
-        - app_dir:/opt
+        - app_dir:/tmp
       command:
-        - cd /opt
+        - cd /tmp
         - mvn packages
 
 
@@ -39,9 +39,9 @@
       state: started
       image: tomcat:alpine
       volumes:
-        - app_dir:/opt
+        - app_dir:/tmp
       command: 
-        - cp /opt/target/*.war /usr/local/tomcat/webapps
+        - cp /tmp/target/*.war /usr/local/tomcat/webapps
       ports:
       - "8080:8080"
       expose:
