@@ -22,6 +22,7 @@
 
   - name: Create maven build
     docker_container:
+      detach: false
       name: maven
       state: started
       image: maven:3.6.1-slim
@@ -30,7 +31,11 @@
       working_dir: /opt/app  
       command:
         - mvn packages
-
+    register: docker_container_output
+ 
+  - name: Show test output
+    debug:
+      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"
 
   - name: Create prod image
     docker_container:
