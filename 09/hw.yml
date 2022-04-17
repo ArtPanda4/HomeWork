@@ -18,8 +18,8 @@
       volumes:
         - app_dir:/opt
       command:
-        -c git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-        -c cp -r ./boxfuse-sample-java-war-hello/* /opt
+        - cd /opt     
+        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
     register: docker_container_output
 
   - name: Show test output
