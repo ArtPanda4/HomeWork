@@ -9,10 +9,6 @@
       name: docker.io
       state: present
 
-  - name: Create a shared volume for web app
-    docker_volume:
-      name: app_dir
-
   - name: Create git container
     docker_container:
       name: git
