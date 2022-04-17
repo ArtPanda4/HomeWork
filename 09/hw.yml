@@ -43,8 +43,7 @@
       name: prod_img
       state: present
       image: tomcat:alpine
-      command: /bin/bash -c {{ item }}
-      with_items:
+      command: 
         - cp /opt/boxfuse-sample-java-war-hello/*.war /usr/local/tomcat/webapps/   
         - ["catalina.sh", "run"]
       volumes:
