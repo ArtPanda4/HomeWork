@@ -27,7 +27,7 @@
       image: maven:3.6.1-slim
       volumes:
         - app_dir:/opt
-      workdir: /opt/app  
+      working_dir: /opt/app  
       command:
         - mvn packages
 
