@@ -41,10 +41,10 @@
       name: prod_img
       state: started
       image: tomcat:alpine
-      command: 
-        - cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/   
-        - ["catalina.sh", "run"]
+      command: cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/   
       exposed_ports:
         - 8080  
+      ports:
+      - "8080:8080"
       volumes:
         - app_dir:/opt  
