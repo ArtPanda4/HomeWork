@@ -40,7 +40,7 @@
       volumes:
         - app_dir:/opt
       command: 
-        - cp /opt/target/*.war /usr/local/tomcat/webapps
+        - cp /opt/app/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps
       ports:
       - "8080:8080"
       expose:
