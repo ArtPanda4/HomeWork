@@ -1,9 +1,14 @@
 ---
 - name: build app
   hosts: build
-  become: yes
+  become: yes 
   
   tasks:
+  - name: Ensure docker is present
+    apt:
+      name: docker_io
+      state: present
+
   - name: Create a shared volume for web app
     docker_volume:
       name: app_dir
