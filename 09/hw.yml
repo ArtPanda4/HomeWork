@@ -16,10 +16,10 @@
       image: bitnami/git:latest
       detach : false
       volumes:
-        - app_dir:/tmp
+        - app_dir:/opt
       command:
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-        - cp -r ./boxfuse-sample-java-war-hello/* /tmp
+#        - cp -r ./boxfuse-sample-java-war-hello/* /opt
     register: docker_container_output
 
   - name: Show test output
