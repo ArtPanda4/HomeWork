@@ -6,7 +6,7 @@
   tasks:
   - name: Ensure docker is present
     apt:
-      name: docker_io
+      name: docker.io
       state: present
 
   - name: Create a shared volume for web app
