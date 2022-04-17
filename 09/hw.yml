@@ -26,11 +26,12 @@
       name: maven
       state: started
       image: maven:3.6.1-slim
+      volumes:
+        - app_dir:/opt
       command:
         - cd /opt
         - mvn packages
-      volumes:
-        - app_dir:/opt      
+
 
   - name: Create prod image
     docker_container:
