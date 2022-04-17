@@ -40,7 +40,7 @@
       volumes:
         - app_dir:/opt
       command:
-        - cp /opt/app/target/hello-1.0.war /webapps/
+        - cp /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps/
       ports:
       - "8080:8080"
       expose:
