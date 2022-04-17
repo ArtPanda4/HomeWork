@@ -4,57 +4,66 @@
   become: yes
   
   tasks:
-  - name: Install java
-    apt:
-      name: default-jdk
-      state: present
+  - name: Create a shared volume for web app
+    docker_volume:
+      name: app_dir
 
-  - name: Install maven
-    apt:
-      name: maven
-      state: present
-
-  - name: Install git
-    apt:
+  - name: Create git container
+    docker_container:
       name: git
       state: present
+      image: bitnami/git:latest
+      command: /bin/bash -c "{{ item }}"
+      with_items:
+        - WORKDIR "/opt"
+        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
+      volumes:
+        - app_dir:/opt
 
-  - name: git clone boxfuse
-    command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-    args:
-      chdir: /tmp
+  - name: Create maven build
+    docker_container:
+      name: maven
+      state: present
+      image: maven:3.6.1-slim
+      command: /bin/bash -c "{{ item }}"
+      with_items:
+        - WORKDIR "/opt"
+        - cd boxfuse-sample-java-war-hello
+        - mvn package
+      volumes:
+        - app_dir:/opt      
 
-  - name: build a war
-    command: mvn package
-    args:
-      chdir: /tmp/boxfuse-sample-java-war-hello
+  - name: Create prod image
+    docker_container:
+      name: prod_img
+      state: present
+      image: tomcat:alpine
+      command: /bin/bash -c "{{ item }}"
+      with_items:
+        - cp /opt/boxfuse-sample-java-war-hello/*.war /usr/local/tomcat/webapps/   
+        - ["catalina.sh", "run"]
+      volumes:
+        - app_dir:/opt  
 
-  - name: copy war file to ansible master
-    ansible.builtin.fetch:
-      src: /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war
-      dest: /tmp/
-      flat: true
-  
-- name: start app on prod
+  - name: Tag and push prod_img to docker hub
+    docker_image:
+      name: prod_img
+      repository: artpanda/hw-08
+      tag: 1.0
+      push: yes
+
+- name: start app
   hosts: prod
   become: yes
 
-  tasks:   
-  - name: install tomcat
-    apt:
-      name: tomcat9
-      state: present
+  tasks:
+  - name: pull a prod_img
+    docker_image:
+      name: prod_img
+      repository: artpanda/hw-08
 
-  - name: copy app from ansible master to prods
-    ansible.builtin.copy:
-        src: /tmp/hello-1.0.war
-        dest: /var/lib/tomcat9/webapps/hello-1.0.war
-        owner: root
-        group: root
-        mode: '0777'
-
-  - name: ensure tomcat is running
-    service:
-      name: tomcat9
-      state: started
-    
+  - name: Restart a container
+    docker_container:
+      name: prod
+      image: prod_img
+      state: started  
