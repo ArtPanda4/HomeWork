@@ -36,11 +36,11 @@
       detach: false
       name: prod_img
       state: started
-      image: bitnami/tomcat:latest
+      image: tomcat:alpine
       volumes:
         - app_dir:/tmp
       command: 
-       - ./opt/bitnami/scripts/tomcat/run.sh
+       - CMD ["catalina.sh", "run"]
       ports:
       - "8080:8080"
       expose:
