@@ -47,6 +47,12 @@
       volumes:
         - app_dir:/opt  
 
+  - name: Log into DockerHub
+    docker_login:
+      username: artpanda
+      password: 54701279-a1c9-48ac-a6c8-cf69971e3d8a
+      email: artpanda4@gmail.com
+
   - name: Tag and push prod_img to docker hub
     docker_image:
       name: prod_img
@@ -59,6 +65,12 @@
   become: yes
 
   tasks:
+  - name: Log into DockerHub
+    docker_login:
+      username: artpanda
+      password: 54701279-a1c9-48ac-a6c8-cf69971e3d8a
+      email: artpanda4@gmail.com
+
   - name: pull a prod_img
     docker_image:
       name: prod_img
