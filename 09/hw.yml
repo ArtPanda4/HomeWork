@@ -3,7 +3,7 @@
   hosts: build
   become: yes 
   
-  tasks: 
+  tasks:
   - name: Ensure docker is present
     apt:
       name: docker.io
@@ -14,13 +14,39 @@
       name: git
       state: started
       image: bitnami/git:latest
-      detach : false
       volumes:
         - app_dir:/opt
       command:
-        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello /opt/app/
+        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello /opt/app/ -q
+
+
+  - name: Create maven build
+    docker_container:
+      name: maven
+      state: started
+      image: maven:3.6.1-slim
+      volumes:
+        - app_dir:/opt
+      command:
+        - mvn -f /opt/app/boxfuse-sample-java-war-hello/pom.xml packages
+
+
+  - name: Create prod image
+    docker_container:
+      detach: false
+      name: prod_img
+      state: started
+      image: tomcat:alpine
+      volumes:
+        - app_dir:/opt
+      command: 
+        - cp /opt/target/*.war /usr/local/tomcat/webapps
+      ports:
+      - "8080:8080"
+      expose:
+        - 8080
     register: docker_container_output
 
   - name: Show test output
     debug:
-      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"
+      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"         
