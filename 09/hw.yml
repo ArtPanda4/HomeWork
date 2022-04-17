@@ -13,7 +13,7 @@
     docker_container:
       name: git
       state: started
-      image: ubuntu:latest
+      image: bitnami/git:latest
       detach : false
       volumes:
         - app_dir:/opt
