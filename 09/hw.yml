@@ -3,7 +3,7 @@
   hosts: build
   become: yes 
   
-  tasks:
+  tasks: 
   - name: Ensure docker is present
     apt:
       name: docker.io
@@ -14,8 +14,14 @@
       name: git
       state: started
       image: bitnami/git:latest
+      detach : false
       volumes:
         - app_dir:/tmp
       command:
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
         - cp -r ./boxfuse-sample-java-war-hello/* /tmp
+      register: docker_container_output
+      
+  - name: Show test output
+    debug:
+      msg: "{{ docker_container_output.ansible_facts.docker_container.Output }}"    
