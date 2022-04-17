@@ -20,7 +20,7 @@
       command:
         - apt-get install git -y   
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
-        - CP -r ./boxfuse-sample-java-war-hello/* /opt
+        - mv ./boxfuse-sample-java-war-hello/* /opt
     register: docker_container_output
 
   - name: Show test output
