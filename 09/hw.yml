@@ -18,11 +18,12 @@
       name: git
       state: present
       image: bitnami/git:latest
-      command:
-        - WORKDIR "/opt"
-        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
       volumes:
         - app_dir:/opt
+      command:
+        - cd /opt
+        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
+
 
   - name: Create maven build
     docker_container:
@@ -44,8 +45,7 @@
       volumes:
         - app_dir:/opt
       command: 
-        - cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps/
-        - ./bin/catalina.sh start 
+        - cp /opt/boxfuse-sample-java-war-hello/target/*.war /usr/local/tomcat/webapps
       ports:
       - "8080:8080"
       expose:
