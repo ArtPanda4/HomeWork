@@ -18,8 +18,7 @@
       name: git
       state: present
       image: bitnami/git:latest
-      command: /bin/bash -c {{ item }}
-      with_items:
+      command:
         - WORKDIR "/opt"
         - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
       volumes:
@@ -30,8 +29,7 @@
       name: maven
       state: present
       image: maven:3.6.1-slim
-      command: /bin/bash -c {{ item }}
-      with_items:
+      command:
         - WORKDIR "/opt"
         - cd boxfuse-sample-java-war-hello
         - mvn package
