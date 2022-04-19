@@ -22,7 +22,8 @@
   - name: Install docker
     apt:
       name: docker.io
-      state: present    
+      state: present
+      update_cache: yes    
 
   - name: purge /tmp
     file:
@@ -61,7 +62,8 @@
   - name: Install docker
     apt:
       name: docker.io
-      state: present  
+      state: present
+      update_cache: yes  
 
   - name: Start a container
     docker_container:
