@@ -32,7 +32,7 @@
   - name: build a war
     command: mvn package
     args:
-      chdir: /tmp/
+      chdir: /tmp/boxfuse-sample-java-war-hello/
 
   - name: drop a docker file
     synchronize:
