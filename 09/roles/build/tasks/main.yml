@@ -22,18 +22,18 @@
 
   - name: purge project directory
     file:
-      path: /"{{ destin_folder }}"/*
+      path: /"{{ destin_folder }}"
       state: absent
 
   - name: git clone boxfuse
     git:
       repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
-      dest: /tmp
+      dest: "{{ destin_folder }}"
    
   - name: build a war
     command: mvn package
     args:
-      chdir: /"{{ destin_folder }}""
+      chdir: /"{{ destin_folder }}"
 
   - name: drop a docker file
     synchronize:

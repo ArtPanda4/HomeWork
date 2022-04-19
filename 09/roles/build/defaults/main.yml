@@ -1,5 +1,5 @@
 ---
 # defaults file for build
-destin_folder: /tmp
+destin_folder: /tmp/app
 repos: artpanda/hw-09
 con_name: hw-09 
