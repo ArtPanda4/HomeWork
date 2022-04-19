@@ -19,11 +19,16 @@
     apt:
       name: docker.io
       state: present  
-
+  
   - name: purge project directory
     file:
       path: /"{{ destin_folder }}"
       state: absent
+
+  - name: Create a project directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ destin_folder }}"
+      state: directory
 
   - name: git clone boxfuse
     git:
