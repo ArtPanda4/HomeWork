@@ -1,0 +1,28 @@
+---
+- name: build app
+  hosts: build
+  become: yes
+  
+  roles:
+    -build
+    
+- name: start on prod
+  hosts: prod
+  become: yes
+
+  tasks:
+  - name: Install docker
+    apt:
+      name: docker.io
+      state: present
+
+  - name: Start a container
+    docker_container:
+      name: hw-09
+      state: started
+      image: "artpanda/hw-09:latest"
+      pull: true
+      detach: yes
+      cleanup: yes
+      ports:
+        - "8080:8080"

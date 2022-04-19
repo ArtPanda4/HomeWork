@@ -1,2 +1,50 @@
 ---
 # tasks file for build
+  - name: Install java
+    apt:
+      name: default-jdk
+      state: present
+
+  - name: Install maven
+    apt:
+      name: maven
+      state: present
+
+  - name: Install git
+    apt:
+      name: git
+      state: present
+
+  - name: Install docker
+    apt:
+      name: docker.io
+      state: present  
+
+  - name: purge project directory
+    file:
+      path: /{{ destin_folder }}/*
+      state: absent
+
+  - name: git clone boxfuse
+    git:
+      repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+      dest: /tmp
+   
+  - name: build a war
+    command: mvn package
+    args:
+      chdir: /{{ destin_folder }}
+
+  - name: drop a docker file
+    synchronize:
+      src: Dockerfile
+      dest: /{{ destin_folder }}/Dockerfile
+
+  - name: Build an image and push it to dockerhub
+    docker_image:
+      build:
+        path: /{{ destin_folder }}/
+      name: {{ con_name }}
+      repository: {{ repos }}
+      push: yes
+      source: build
