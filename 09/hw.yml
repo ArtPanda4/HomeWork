@@ -4,10 +4,11 @@
   become: yes
   
   roles:
-    -build
+    - build
 
 - name: prod
   hosts: prod 
   become: yes
 
-  roles: prod 
+  roles: 
+    - prod 
