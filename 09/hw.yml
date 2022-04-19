@@ -19,10 +19,7 @@
       name: git
       state: present
 
-  - name: purge /tmp
-    ansible.builtin.file:
-      path: /tmp/*
-      state: absent
+  - file: path=/tmp/* state=absent
 
   - name: git clone boxfuse
     command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
