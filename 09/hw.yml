@@ -21,7 +21,7 @@
 
   - name: purge /tmp
     ansible.builtin.file:
-      path: /tmp
+      path: /tmp/*
       state: absent
 
   - name: git clone boxfuse
