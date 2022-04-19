@@ -19,7 +19,10 @@
       name: git
       state: present
 
-  - file: path=/tmp/* state=absent
+  - name: purge /tmp
+    file:
+      path: /tmp/boxfuse-sample-java-war-hello
+      state: absent
 
   - name: git clone boxfuse
     command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
