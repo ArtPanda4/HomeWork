@@ -4,6 +4,11 @@
   become: yes
   
   tasks:
+  - name: Run apt upgrade
+    apt:
+      upgrade: "yes"
+      update_cache: yes
+
   - name: Install java
     apt:
       name: default-jdk
@@ -22,8 +27,7 @@
   - name: Install docker
     apt:
       name: docker.io
-      state: present
-      update_cache: yes    
+      state: present  
 
   - name: purge /tmp
     file:
@@ -59,11 +63,15 @@
   become: yes
 
   tasks:
+  - name: Run apt upgrade
+    apt:
+      upgrade: "yes"
+      update_cache: yes  
+
   - name: Install docker
     apt:
       name: docker.io
       state: present
-      update_cache: yes  
 
   - name: Start a container
     docker_container:
