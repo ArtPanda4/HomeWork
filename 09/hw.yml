@@ -70,5 +70,6 @@
       image: "artpanda/hw-09:latest"
       pull: true
       detach: yes
+      cleanup: yes
       ports:
         - "8080:8080"
