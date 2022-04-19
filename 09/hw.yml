@@ -4,18 +4,6 @@
   become: yes
   
   tasks:
-  - name: Run apt update
-    become_user: root  
-    apt:
-      update_cache: yes
-      force_apt_get: yes
-
-  - name: Upgrade all packages on servers
-    become_user: root
-    apt: 
-      upgrade: full
-      force_apt_get: yes     
-
   - name: Install java
     apt:
       name: default-jdk
@@ -70,18 +58,6 @@
   become: yes
 
   tasks:
-  - name: Run apt update
-    become_user: root 
-    apt:
-      update_cache: yes
-      force_apt_get: yes
-
-  - name: Upgrade all packages on servers
-    become_user: root  
-    apt: 
-      upgrade: full
-      force_apt_get: yes 
-
   - name: Install docker
     apt:
       name: docker.io
