@@ -31,16 +31,17 @@
 
   - name: drop a docker file
     synchronize:
-      src: ./
-      dest: /tmp
+      src: ./Dockerfile
+      dest: /tmp/Dockerfile
 
-
-  - name: Build an image and push it to dockerhub
+  - name: Build an image and push it to a private repo
     docker_image:
-      path: /tmp
+      build:
+        path: /tmp
       name: hw-09
       repository: artpanda/hw-09
       push: yes
+      source: build
 
 - name: start on prod
   hosts: prod
