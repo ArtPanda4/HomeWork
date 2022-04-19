@@ -45,6 +45,6 @@
       build:
         path: /"{{ destin_folder }}"/
       name: "{{ con_name }}"
-      repository: {{ repos }}
+      repository: "{{ repos }}"
       push: yes
       source: build
