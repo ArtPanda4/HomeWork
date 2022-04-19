@@ -36,12 +36,11 @@
 
 
   - name: Build an image and push it to dockerhub
-    community.docker.docker_image:
-      build:
-        path: /tmp
+    docker_image:
+      path: /tmp
+      name: hw-09
       repository: artpanda/hw-09
       push: yes
-      source: build
 
 - name: start on prod
   hosts: prod
