@@ -38,7 +38,7 @@
   - name: build a war
     command: mvn package
     args:
-      chdir: /"{{ destin_folder }}"
+      chdir: "{{ destin_folder }}"
 
   - name: drop a docker file
     synchronize:
@@ -48,7 +48,7 @@
   - name: Build an image and push it to dockerhub
     docker_image:
       build:
-        path: /"{{ destin_folder }}"/
+        path: "{{ destin_folder }}"
       name: "{{ con_name }}"
       repository: "{{ repos }}"
       push: yes
