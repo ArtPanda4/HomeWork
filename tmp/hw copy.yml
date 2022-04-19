@@ -1,0 +1,42 @@
+---
+- name: build app
+  hosts: build
+  become: yes 
+  
+  tasks:
+  - name: Ensure docker is present
+    apt:
+      name: docker.io
+      state: present
+
+  - name: Create git container
+    docker_container:
+      name: git
+      state: started
+      image: bitnami/git:latest
+      volumes:
+        - app_dir:/opt
+      command:
+        - git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello /opt/app/ -q
+
+
+  - name: Create maven build
+    docker_container:
+      name: maven
+      state: started
+      image: maven:3.6.1-slim
+      volumes:
+        - app_dir:/opt
+      working_dir: /opt/app  
+      command:
+        - mvn package
+
+  - name: Create prod image
+    docker_container:
+      name: prod_img
+      state: started
+      image: tomcat:latest
+      volumes:
+        - app_dir:/opt
+      command:
+        - cp /opt/app/target/hello-1.0.war /usr/local/tomcat/webapps/
