@@ -4,12 +4,14 @@
   become: yes
   
   tasks:
-  - name: Run apt upgrade
+  - name: Run apt update
+    become_user: root  
     apt:
       update_cache: yes
       force_apt_get: yes
 
   - name: Upgrade all packages on servers
+    become_user: root
     apt: 
       upgrade: full
       force_apt_get: yes     
@@ -68,12 +70,14 @@
   become: yes
 
   tasks:
-  - name: Run apt upgrade
+  - name: Run apt update
+    become_user: root 
     apt:
       update_cache: yes
       force_apt_get: yes
 
   - name: Upgrade all packages on servers
+    become_user: root  
     apt: 
       upgrade: full
       force_apt_get: yes 
