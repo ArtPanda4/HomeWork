@@ -44,7 +44,7 @@
     docker_image:
       build:
         path: /"{{ destin_folder }}"/
-      name: "{{ con_name }}""
+      name: "{{ con_name }}"
       repository: {{ repos }}
       push: yes
       source: build
