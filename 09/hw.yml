@@ -19,11 +19,16 @@
       name: git
       state: present
 
+  - name: purge /tmp
+    ansible.builtin.file:
+      path: /tmp
+      state: absent
+
   - name: git clone boxfuse
     command: git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
     args:
       chdir: /tmp
-
+   
   - name: build a war
     command: mvn package
     args:
@@ -34,7 +39,7 @@
       src: ./Dockerfile
       dest: /tmp/Dockerfile
 
-  - name: Build an image and push it to a private repo
+  - name: Build an image and push it to dockerhub
     docker_image:
       build:
         path: /tmp
