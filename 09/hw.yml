@@ -19,6 +19,11 @@
       name: git
       state: present
 
+  - name: Install docker
+    apt:
+      name: docker.io
+      state: present    
+
   - name: purge /tmp
     file:
       path: /tmp/boxfuse-sample-java-war-hello
@@ -53,6 +58,11 @@
   become: yes
 
   tasks:
+  - name: Install docker
+    apt:
+      name: docker.io
+      state: present  
+
   - name: Start a container
     docker_container:
       name: hw-09
