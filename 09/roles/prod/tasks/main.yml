@@ -9,7 +9,7 @@
     docker_container:
       name: hw-09
       state: started
-      image: {{ repos }}
+      image: "{{ repos }}"
       pull: true
       detach: yes
       cleanup: yes
