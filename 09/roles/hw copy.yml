@@ -1,0 +1,13 @@
+---
+- name: build app
+  hosts: build
+  become: yes
+  
+  roles:
+    -build
+
+- name: prod
+  hosts: prod 
+  become: yes
+
+  roles: prod 

@@ -1,2 +1,17 @@
 ---
 # tasks file for prod
+  - name: Install docker
+    apt:
+      name: docker.io
+      state: present
+
+  - name: Start a container
+    docker_container:
+      name: hw-09
+      state: started
+      image: {{ repos }}
+      pull: true
+      detach: yes
+      cleanup: yes
+      ports:
+        - "8080:8080"
