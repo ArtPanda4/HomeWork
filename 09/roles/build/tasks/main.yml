@@ -1,24 +1,13 @@
 ---
 # tasks file for build
-  - name: Install java
-    apt:
-      name: default-jdk
-      state: present
-
-  - name: Install maven
-    apt:
-      name: maven
-      state: present
-
-  - name: Install git
-    apt:
-      name: git
-      state: present
-
-  - name: Install docker
-    apt:
-      name: docker.io
-      state: present  
+  - name: Installing all needed apps
+    apt: pkg={{ item }}
+    with_items:
+      - maven
+      - git
+      - docker.io
+      - default-jdk
+    stete: present  
   
   - name: purge project directory
     file:
