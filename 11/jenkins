@@ -1,0 +1,48 @@
+pipeline {
+  agent {
+    docker { 
+        image 'ubuntu:20.04'
+        args '-u root --privileged'
+    }
+  }
+    environment {
+    DOCKERHUB_CREDENTIALS=credentials('docker-hub')
+    PROD_CREDENTIALS=credentials('ssh_to_prod')
+  }
+  stages {
+      
+    stage('apt install') {
+      steps {
+          sh 'apt update && apt upgrade -y && DEBIAN_FRONTEND=noninteractive apt install sshpass maven docker.io git -y'
+      }
+    }  
+    stage('git') {
+      steps {
+        git 'https://github.com/ArtPanda4/HW10.git'
+      }
+    }
+    stage('Build war') {
+      steps {
+        sh 'mvn package'
+      }
+    }
+
+    stage('Make docker image') {
+      steps {
+        sh 'dockerd --storage-driver=vfs &' 
+        sh 'docker build --tag=artpanda/hw-11 .'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'docker push artpanda/hw-11:latest'
+        }
+      }
+     stage('start container on prod') {
+         steps {
+         sh '''sshpass -p "$PROD_CREDENTIALS_PSW" ssh -o StrictHostKeyChecking=no root@51.250.97.121 << EOF
+         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+         docker pull artpanda/hw-11:latest
+         docker run  -d -p 8080:8080 artpanda/hw-11:latest'''
+         }
+       
+     } 
+       }       
+       }
